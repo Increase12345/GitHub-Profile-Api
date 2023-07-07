@@ -15,7 +15,7 @@ struct SearchFieldView: View {
             TextField("Enter the user name", text: $text)
                 .padding(8)
                 .padding(.horizontal, 24)
-                .padding(.trailing, 48)
+                .padding(.trailing, 50)
                 .background(Color(.systemGroupedBackground))
                 .cornerRadius(15)
                 .overlay(
@@ -27,7 +27,7 @@ struct SearchFieldView: View {
                     }
                 )
         }
-        .padding()
+        .padding(.horizontal)
     }
 }
 

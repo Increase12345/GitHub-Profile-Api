@@ -15,8 +15,15 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             VStack {
+                
+                // Search section
                 ZStack(alignment: .trailing) {
                     SearchFieldView(text: $vm.searchText)
+                        .onSubmit {
+                            Task {
+                                try await vm.searchUser(with: vm.searchText)
+                            }
+                        }
                     Button {
                         Task {
                             try await vm.searchUser(with: vm.searchText)
@@ -25,16 +32,19 @@ struct ContentView: View {
                         Text("Search")
                             .fontWeight(.semibold)
                     }
-                    .padding(.trailing, 30)
+                    .padding(.trailing, 35)
                 }
                 
+                // Profile section
                 ProfileView(user: vm.mainUser)
+                    .padding(.top)
                 
                 Divider()
                 Text("All Followers")
                     .foregroundColor(.secondary)
                     .font(.footnote)
                 
+                // Followers section
                 ForEach(vm.followers, id: \.id) { follower in
                     Button {
                         vm.fetchUser(with: follower.url)
