@@ -21,6 +21,8 @@ class ContentViewModel: ObservableObject {
     @Published var followerProfile = User(id: 0, name: "", login: "", bio: "", avatarUrl: "", htmlUrl: "", followersUrl: "", followers: 0, following: 0, url: "")
     @Published var followersOfFollower = [Followers]()
     
+    @Published var searchText = ""
+    
     
     init() {
         Task {
@@ -28,6 +30,11 @@ class ContentViewModel: ObservableObject {
             mainUser = try await service.fetchData(with: "https://api.github.com/users/kentcdodds")
             followers = try await service.fetchData(with: mainUser.followersUrl)
         }
+    }
+    
+    func searchUser(with username: String) async throws {
+        mainUser = try await service.fetchData(with: "https://api.github.com/users/\(searchText)")
+        followers = try await service.fetchData(with: mainUser.followersUrl)
     }
     
     // fetching data of sheet view user profile info

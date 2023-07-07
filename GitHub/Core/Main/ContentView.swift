@@ -15,6 +15,19 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             VStack {
+                ZStack(alignment: .trailing) {
+                    SearchFieldView(text: $vm.searchText)
+                    Button {
+                        Task {
+                            try await vm.searchUser(with: vm.searchText)
+                        }
+                    } label: {
+                        Text("Search")
+                            .fontWeight(.semibold)
+                    }
+                    .padding(.trailing, 30)
+                }
+                
                 ProfileView(user: vm.mainUser)
                 
                 Divider()
