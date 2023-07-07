@@ -30,7 +30,7 @@ class ContentViewModel: ObservableObject {
     init() {
         Task {
             // fetching data of main view user profile
-            mainUser = try await service.fetchData(with: "https://api.github.com/users/kentcdodds")
+            mainUser = try await service.fetchData(with: "https://api.github.com/users/increase12345")
             mainFollowers = try await service.fetchData(with: mainUser.followersUrl)
             fetchFollowing()
         }
@@ -40,6 +40,7 @@ class ContentViewModel: ObservableObject {
         mainUser = try await service.fetchData(with: "https://api.github.com/users/\(searchText)")
         mainFollowers = try await service.fetchData(with: mainUser.followersUrl)
         fetchFollowing()
+        searchText = ""
     }
     
     // fetching data of sheet view user profile info

@@ -17,30 +17,12 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             VStack {
-                
                 // Search section
-                ZStack(alignment: .trailing) {
-                    SearchFieldView(text: $vm.searchText)
-                        .onSubmit {
-                            Task {
-                                try await vm.searchUser(with: vm.searchText)
-                            }
-                        }
-                    Button {
-                        Task {
-                            try await vm.searchUser(with: vm.searchText)
-                        }
-                    } label: {
-                        Text("Search")
-                            .fontWeight(.semibold)
-                    }
-                    .padding(.trailing, 35)
-                }
+                searchSection
                 
                 // Profile section
                 ProfileView(user: vm.mainUser)
                     .padding(.top)
-                
                 
                 // Filter Bar
                 filterFollowersBar
@@ -52,7 +34,6 @@ struct ContentView: View {
                 } else {
                     followingList
                 }
-                
             }
             .sheet(isPresented: $showDetail) {
                 SheetFollowerProfileView()
@@ -103,23 +84,58 @@ extension ContentView {
     }
     
     var followersList: some View {
-        ForEach(vm.mainFollowers, id: \.id) { follower in
-            Button {
-                vm.fetchUser(with: follower.url)
-                showDetail.toggle()
-            } label: {
-                FollowersView(follower: follower)
+        VStack {
+            if vm.mainFollowers.isEmpty {
+                Text("No Followers yet...")
+                    .foregroundColor(.secondary)
+            } else {
+                ForEach(vm.mainFollowers, id: \.id) { follower in
+                    Button {
+                        vm.fetchUser(with: follower.url)
+                        showDetail.toggle()
+                    } label: {
+                        FollowersView(follower: follower)
+                    }
+                }
             }
         }
     }
     
     var followingList: some View {
-        ForEach(vm.mainFollowing, id: \.id) { following in
-            Button {
-                
-            } label: {
-                FollowersView(follower: following)
+        VStack {
+            if vm.mainFollowing.isEmpty {
+                Text("No Following yet...")
+                    .foregroundColor(.secondary)
+            } else {
+                ForEach(vm.mainFollowing, id: \.id) { following in
+                    Button {
+                        vm.fetchUser(with: following.url)
+                        showDetail.toggle()
+                    } label: {
+                        FollowersView(follower: following)
+                    }
+                }
             }
+        }
+    }
+    
+    var searchSection: some View {
+        ZStack(alignment: .trailing) {
+            SearchFieldView(text: $vm.searchText)
+                .onSubmit {
+                    Task {
+                        try await vm.searchUser(with: vm.searchText)
+                    }
+                }
+            Button {
+                Task {
+                    try await vm.searchUser(with: vm.searchText)
+                }
+            } label: {
+                Text("Search")
+                    .fontWeight(.semibold)
+            }
+            .padding(.trailing, 35)
         }
     }
 }
