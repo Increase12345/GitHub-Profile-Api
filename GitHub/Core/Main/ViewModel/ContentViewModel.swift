@@ -15,7 +15,10 @@ class ContentViewModel: ObservableObject {
     @Published var mainUser = User(id: 0, name: "", login: "", bio: "", avatarUrl: "", htmlUrl: "", followersUrl: "", followers: 0, following: 0, url: "")
     
     // store followers of main profile
-    @Published var followers = [Followers]()
+    @Published var mainFollowers = [Followers]()
+    
+    // store following of main prifile
+    @Published var mainFollowing = [Followers]()
     
     // store data of sheet view users info
     @Published var followerProfile = User(id: 0, name: "", login: "", bio: "", avatarUrl: "", htmlUrl: "", followersUrl: "", followers: 0, following: 0, url: "")
@@ -28,13 +31,15 @@ class ContentViewModel: ObservableObject {
         Task {
             // fetching data of main view user profile
             mainUser = try await service.fetchData(with: "https://api.github.com/users/kentcdodds")
-            followers = try await service.fetchData(with: mainUser.followersUrl)
+            mainFollowers = try await service.fetchData(with: mainUser.followersUrl)
+            fetchFollowing()
         }
     }
     
     func searchUser(with username: String) async throws {
         mainUser = try await service.fetchData(with: "https://api.github.com/users/\(searchText)")
-        followers = try await service.fetchData(with: mainUser.followersUrl)
+        mainFollowers = try await service.fetchData(with: mainUser.followersUrl)
+        fetchFollowing()
     }
     
     // fetching data of sheet view user profile info
@@ -49,6 +54,12 @@ class ContentViewModel: ObservableObject {
     func fetchFollowers() {
         Task {
             followersOfFollower = try await service.fetchData(with: followerProfile.followersUrl)
+        }
+    }
+    
+    func fetchFollowing() {
+        Task {
+            mainFollowing = try await service.fetchData(with: "https://api.github.com/users/\(mainUser.login)/following")
         }
     }
 }

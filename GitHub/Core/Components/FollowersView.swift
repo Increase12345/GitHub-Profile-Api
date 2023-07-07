@@ -16,7 +16,7 @@ struct FollowersView: View {
             KFImage(URL(string: follower.avatarUrl))
                 .resizable()
                 .scaledToFit()
-                .frame(width: 80, height: 80)
+                .frame(width: 70, height: 70)
                 .clipShape(Circle())
             VStack(alignment: .leading) {
                 Text(follower.login)

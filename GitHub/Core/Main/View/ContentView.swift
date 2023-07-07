@@ -43,18 +43,16 @@ struct ContentView: View {
                 
                 
                 // Filter Bar
-                FilterFollowersBar
+                filterFollowersBar
                     .padding()
                 
                 // Followers section
-                ForEach(vm.followers, id: \.id) { follower in
-                    Button {
-                        vm.fetchUser(with: follower.url)
-                        showDetail.toggle()
-                    } label: {
-                        FollowersView(follower: follower)
-                    }
+                if selectedFilter == .followers {
+                    followersList
+                } else {
+                    followingList
                 }
+                
             }
             .sheet(isPresented: $showDetail) {
                 SheetFollowerProfileView()
@@ -74,7 +72,7 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 extension ContentView {
-    var FilterFollowersBar: some View {
+    var filterFollowersBar: some View {
         HStack {
             ForEach(FollowerFilter.allCases, id: \.rawValue) { item in
                 VStack {
@@ -102,5 +100,26 @@ extension ContentView {
             }
         }
         .overlay(Divider().offset(x: 0, y: 16))
+    }
+    
+    var followersList: some View {
+        ForEach(vm.mainFollowers, id: \.id) { follower in
+            Button {
+                vm.fetchUser(with: follower.url)
+                showDetail.toggle()
+            } label: {
+                FollowersView(follower: follower)
+            }
+        }
+    }
+    
+    var followingList: some View {
+        ForEach(vm.mainFollowing, id: \.id) { following in
+            Button {
+                
+            } label: {
+                FollowersView(follower: following)
+            }
+        }
     }
 }
