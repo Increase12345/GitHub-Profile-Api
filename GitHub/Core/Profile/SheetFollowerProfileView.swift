@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct FollowerProfileView: View {
+struct SheetFollowerProfileView: View {
     @EnvironmentObject var vm: ContentViewModel
     
     var body: some View {
@@ -34,9 +34,9 @@ struct FollowerProfileView: View {
     }
 }
 
-struct FollowerProfileView_Previews: PreviewProvider {
+struct SheetFollowerProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowerProfileView()
+        SheetFollowerProfileView()
             .environmentObject(ContentViewModel())
     }
 }

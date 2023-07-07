@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Service function
 struct Service {
     
     func fetchData<T: Codable>(with urlPath: String) async throws -> T {

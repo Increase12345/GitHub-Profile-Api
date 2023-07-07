@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             VStack {
-                ProfileView(user: vm.user)
+                ProfileView(user: vm.mainUser)
                 
                 Divider()
                 Text("All Followers")
@@ -32,7 +32,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showDetail) {
-                FollowerProfileView()
+                SheetFollowerProfileView()
                     .environmentObject(vm)
             }
         }
