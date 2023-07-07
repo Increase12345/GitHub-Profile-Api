@@ -20,12 +20,14 @@ struct ProfileView: View {
                 .clipShape(Circle())
             
             VStack {
-                Text(user.name)
-                    .font(.largeTitle.bold())
-                Text(user.bio ?? "no bio")
-                    .font(.footnote)
-                
-                Link("Visit on GitHub", destination: URL(string: user.htmlUrl) ?? URL(string: "https://www.apple.com")!)
+                VStack(spacing: 8) {
+                    Text(user.name)
+                        .font(.largeTitle.bold())
+                    Text(user.bio ?? "bio: N/A")
+                        .font(.footnote)
+                    
+                    Link("Visit on GitHub", destination: URL(string: user.htmlUrl) ?? URL(string: "https://www.apple.com")!)
+                }
                 
                 HStack(spacing: 50) {
                     VStack {
@@ -43,7 +45,7 @@ struct ProfileView: View {
                             .bold()
                     }
                 }
-                .padding()
+                .padding(.vertical, 10)
             }
         }
     }

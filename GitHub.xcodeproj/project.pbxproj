@@ -101,7 +101,6 @@
 			children = (
 				401AD10E2A56589C0026E9DA /* Components */,
 				401AD10D2A5656530026E9DA /* Main */,
-				401AD10A2A5655210026E9DA /* Profile */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -112,14 +111,6 @@
 				401AD0F22A5641A40026E9DA /* GitHubApp.swift */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		401AD10A2A5655210026E9DA /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				401AD1412A577B510026E9DA /* SheetFollowerProfileView.swift */,
-			);
-			path = Profile;
 			sourceTree = "<group>";
 		};
 		401AD10D2A5656530026E9DA /* Main */ = {
@@ -135,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				401AD10B2A56552E0026E9DA /* ProfileView.swift */,
+				401AD1412A577B510026E9DA /* SheetFollowerProfileView.swift */,
 				401AD10F2A5658B60026E9DA /* FollowersView.swift */,
 				405799C72A58A1BC00709AE5 /* SearchFieldView.swift */,
 			);
