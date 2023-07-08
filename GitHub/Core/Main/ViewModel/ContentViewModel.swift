@@ -24,6 +24,7 @@ class ContentViewModel: ObservableObject {
     @Published var followerProfile = User(id: 0, name: "", login: "", bio: "", avatarUrl: "", htmlUrl: "", followersUrl: "", followers: 0, following: 0, url: "")
     @Published var followersOfFollower = [Followers]()
     
+    // stored property for search a user
     @Published var searchText = ""
     
     
@@ -36,6 +37,7 @@ class ContentViewModel: ObservableObject {
         }
     }
     
+    // function for searching users on gitHub
     func searchUser(with username: String) async throws {
         mainUser = try await service.fetchData(with: "https://api.github.com/users/\(searchText)")
         mainFollowers = try await service.fetchData(with: mainUser.followersUrl)
@@ -58,6 +60,7 @@ class ContentViewModel: ObservableObject {
         }
     }
     
+    // fetching data of following users
     func fetchFollowing() {
         Task {
             mainFollowing = try await service.fetchData(with: "https://api.github.com/users/\(mainUser.login)/following")

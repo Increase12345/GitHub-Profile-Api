@@ -118,8 +118,8 @@
 		401AD10D2A5656530026E9DA /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				405799CA2A58AC6300709AE5 /* ViewModel */,
 				405799C92A58AC5700709AE5 /* View */,
+				405799CA2A58AC6300709AE5 /* ViewModel */,
 			);
 			path = Main;
 			sourceTree = "<group>";
